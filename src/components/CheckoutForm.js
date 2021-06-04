@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useForm } from '../hooks/useForm.js'
 
 const initialValue = {
@@ -14,20 +14,8 @@ const initialValue = {
 // Build out the logic needed for a form custom hook (see the useForm.js file)
 // and replace the necessary stateful logic from CheckoutForm with the hook
 
-const CheckoutForm = (props) => {
-  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-  const [values, setValues] = useState(initialValue);
-
-  const [firstName, setFirstName, handleFirstName] = useForm('')
-
-  const handleChanges = (e) => {
-    setValues({ ...values, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setShowSuccessMessage(true);
-  };
+const CheckoutForm = () => {
+  const [ showSuccessMessage, values, handleChanges, handleSubmit ] = useForm(initialValue)
 
   return (
     <>
@@ -37,8 +25,8 @@ const CheckoutForm = (props) => {
           First Name:
           <input
             name="firstName"
-            value={firstName}
-            onChange={e => handleFirstName(e.target.value)}
+            value={values.firstName}
+            onChange={e => handleChanges(e.target.value)}
           />
         </label>
         <label>
@@ -46,7 +34,7 @@ const CheckoutForm = (props) => {
           <input
             name="lastName"
             value={values.lastName}
-            onChange={handleChanges}
+            onChange={e => handleChanges(e.target.value)}
           />
         </label>
         <label>
@@ -54,20 +42,20 @@ const CheckoutForm = (props) => {
           <input
             name="address"
             value={values.address}
-            onChange={handleChanges}
+            onChange={e => handleChanges(e.target.value)}
           />
         </label>
         <label>
           City:
-          <input name="city" value={values.city} onChange={handleChanges} />
+          <input name="city" value={values.city} onChange={e => handleChanges(e.target.value)} />
         </label>
         <label>
           State:
-          <input name="state" value={values.state} onChange={handleChanges} />
+          <input name="state" value={values.state} onChange={e => handleChanges(e.target.value)} />
         </label>
         <label>
           Zip:
-          <input name="zip" value={values.zip} onChange={handleChanges} />
+          <input name="zip" value={values.zip} onChange={e => handleChanges(e.target.value)} />
         </label>
         <button>Checkout</button>
       </form>
